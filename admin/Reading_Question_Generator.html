@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读题JSON生成器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .instructions {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 20px 40px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .instructions h2 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 25px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .question-container {
+            display: flex;
+            padding: 20px;
+        }
+        
+        .tabs {
+            flex: 0 0 200px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-right: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tab {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: 0.5s;
+        }
+        
+        .tab:hover::before {
+            left: 100%;
+        }
+        
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .tab.active {
+            background: linear-gradient(90deg, #4a6491, #2c3e50);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .form-container {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+        }
+        
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input[type="text"], 
+        textarea, 
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus, 
+        textarea:focus, 
+        select:focus {
+            border-color: #4a6491;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 100, 145, 0.2);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .choices-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .choice-item {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+        }
+        
+        .choice-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #4a6491;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .answer-section {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .answer-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .answer-option {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .answer-option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .answer-option.selected {
+            background-color: #4a6491;
+            color: white;
+            border-color: #4a6491;
+        }
+        
+        .answer-option input {
+            margin-right: 8px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        .summary-answer .answer-option {
+            min-width: 50px;
+        }
+        
+        .status-bar {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #7f8c8d;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .question-container {
+                flex-direction: column;
+            }
+            
+            .tabs {
+                margin-right: 0;
+                margin-bottom: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 80px;
+                text-align: center;
+                padding: 10px;
+            }
+            
+            .choices-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>阅读题JSON生成器</h1>
+            <p class="subtitle">填写以下表单生成符合规范的阅读题JSON文件，包含10道题目（9道选择题+1道总结题）</p>
+        </header>
+        
+        <div class="instructions">
+            <h2>使用说明</h2>
+            <ul>
+                <li><strong>题目类型</strong>：前9题为选择题（multiple_choice），第10题为总结题（summary）</li>
+                <li><strong>段落引用</strong>：选择题需填写段落编号（数字数组），总结题可忽略</li>
+                <li><strong>选项数量</strong>：选择题4个选项，总结题6个选项</li>
+                <li><strong>答案格式</strong>：选择题为单选（A、B、C、D），总结题为3个正确选项（A-F中选择3个）</li>
+                <li><strong>索引</strong>：题目索引自动生成，不可修改</li>
+                <li>填写完成后点击"下载JSON文件"按钮获取结果</li>
+            </ul>
+        </div>
+        
+        <div class="question-container">
+            <div class="tabs" id="tabs-container">
+                <!-- Tabs will be generated by JavaScript -->
+            </div>
+            
+            <div class="form-container">
+                <form id="question-form">
+                    <!-- Form will be generated by JavaScript -->
+                </form>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="download-btn" id="download-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                </svg>
+                下载JSON文件
+            </button>
+            <button class="reset-btn" id="reset-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                </svg>
+                重置表单
+            </button>
+        </div>
+        
+        <div class="status-bar">
+            提示：所有标记 <span class="required"></span> 的字段为必填项
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabsContainer = document.getElementById('tabs-container');
+            const formContainer = document.getElementById('question-form');
+            
+            // 题目模板
+            const questions = [];
+            for (let i = 1; i <= 10; i++) {
+                const type = i <= 9 ? 'multiple_choice' : 'summary';
+                questions.push({
+                    index: i,
+                    type: type,
+                    paragraph: [],
+                    question: "",
+                    choices: Array(type === 'multiple_choice' ? 4 : 6).fill(""),
+                    answer: type === 'multiple_choice' ? "" : []
+                });
+            }
+            
+            // 生成标签页
+            questions.forEach((q, index) => {
+                const tab = document.createElement('div');
+                tab.className = 'tab';
+                if (index === 0) tab.classList.add('active');
+                tab.textContent = `题 ${q.index}${q.type === 'summary' ? ' (总结)' : ''}`;
+                tab.dataset.index = q.index;
+                
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    showQuestionForm(q.index);
+                });
+                
+                tabsContainer.appendChild(tab);
+            });
+            
+            // 显示问题表单
+            function showQuestionForm(index) {
+                const question = questions[index - 1];
+                formContainer.innerHTML = '';
+                
+                const formHTML = `
+                    <div class="form-section">
+                        <h3>题目 #${question.index} (${question.type === 'multiple_choice' ? '选择题' : '总结题'})</h3>
+                        
+                        <div class="input-group">
+                            <label class="required">题目内容</label>
+                            <textarea 
+                                id="question-${index}" 
+                                placeholder="请输入题目内容..." 
+                                required>${question.question}</textarea>
+                        </div>
+                        
+                        ${question.type === 'multiple_choice' ? `
+                        <div class="input-group">
+                            <label class="required">段落引用</label>
+                            <input 
+                                type="text" 
+                                id="paragraph-${index}" 
+                                placeholder="请输入段落编号，用逗号分隔（如：1,3,5）" 
+                                value="${question.paragraph.join(',')}"
+                                required>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>选项设置</h3>
+                        <div class="choices-container">
+                            ${question.choices.map((choice, i) => `
+                                <div class="choice-item">
+                                    <div class="input-group">
+                                        <label class="required">
+                                            <span class="choice-letter">${String.fromCharCode(65 + i)}</span> 选项内容
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="choice-${index}-${i}" 
+                                            placeholder="请输入选项内容..." 
+                                            value="${choice}"
+                                            required>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="form-section answer-section">
+                        <h3>正确答案</h3>
+                        <div class="input-group">
+                            <label class="required">${question.type === 'multiple_choice' ? '选择正确答案' : '选择3个正确答案'}</label>
+                            <div class="answer-options ${question.type === 'summary' ? 'summary-answer' : ''}">
+                                ${question.choices.map((_, i) => {
+                                    const letter = String.fromCharCode(65 + i);
+                                    const isSelected = question.type === 'multiple_choice' 
+                                        ? question.answer === letter 
+                                        : question.answer.includes(letter);
+                                        
+                                    return `
+                                        <div class="answer-option ${isSelected ? 'selected' : ''}" 
+                                            data-value="${letter}">
+                                            <input 
+                                                type="${question.type === 'multiple_choice' ? 'radio' : 'checkbox'}" 
+                                                name="answer-${index}" 
+                                                value="${letter}" 
+                                                ${isSelected ? 'checked' : ''}
+                                                style="display: none;">
+                                            ${letter}
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                formContainer.innerHTML = formHTML;
+                
+                // 添加答案选择事件
+                const answerOptions = formContainer.querySelectorAll('.answer-option');
+                answerOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const value = this.dataset.value;
+                        const questionIndex = index;
+                        const question = questions[questionIndex - 1];
+                        
+                        if (question.type === 'multiple_choice') {
+                            answerOptions.forEach(opt => opt.classList.remove('selected'));
+                            this.classList.add('selected');
+                            question.answer = value;
+                            this.querySelector('input').checked = true;
+                        } else {
+                            this.classList.toggle('selected');
+                            const input = this.querySelector('input');
+                            input.checked = !input.checked;
+                            
+                            // 更新答案数组
+                            question.answer = [];
+                            formContainer.querySelectorAll(`input[name="answer-${index}"]:checked`).forEach(chk => {
+                                question.answer.push(chk.value);
+                            });
+                            
+                            // 确保最多选择3个
+                            if (question.answer.length > 3) {
+                                question.answer.pop();
+                                this.classList.remove('selected');
+                                input.checked = false;
+                                alert('总结题最多只能选择3个正确答案！');
+                            }
+                        }
+                    });
+                });
+                
+                // 添加输入事件监听
+                formContainer.querySelector(`#question-${index}`).addEventListener('input', function() {
+                    questions[index - 1].question = this.value;
+                });
+                
+                if (question.type === 'multiple_choice') {
+                    formContainer.querySelector(`#paragraph-${index}`).addEventListener('input', function() {
+                        // 将逗号分隔的数字字符串转换为数字数组
+                        const values = this.value.split(',').map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+                        questions[index - 1].paragraph = values;
+                    });
+                }
+                
+                // 添加选项输入事件
+                for (let i = 0; i < question.choices.length; i++) {
+                    formContainer.querySelector(`#choice-${index}-${i}`).addEventListener('input', function() {
+                        questions[index - 1].choices[i] = this.value;
+                    });
+                }
+            }
+            
+            // 显示第一个问题
+            showQuestionForm(1);
+            
+            // 下载JSON文件
+            document.getElementById('download-btn').addEventListener('click', function() {
+                // 验证所有题目是否填写完整
+                let isValid = true;
+                
+                questions.forEach((q, index) => {
+                    // 验证题目内容
+                    if (!q.question.trim()) {
+                        isValid = false;
+                        alert(`题 ${q.index} 的题目内容不能为空！`);
+                        return;
+                    }
+                    
+                    // 验证选择题的段落引用
+                    if (q.type === 'multiple_choice' && q.paragraph.length === 0) {
+                        isValid = false;
+                        alert(`题 ${q.index} 的段落引用不能为空！`);
+                        return;
+                    }
+                    
+                    // 验证所有选项
+                    for (let i = 0; i < q.choices.length; i++) {
+                        if (!q.choices[i].trim()) {
+                            isValid = false;
+                            const letter = String.fromCharCode(65 + i);
+                            alert(`题 ${q.index} 的选项 ${letter} 不能为空！`);
+                            return;
+                        }
+                    }
+                    
+                    // 验证答案
+                    if (q.type === 'multiple_choice' && !q.answer) {
+                        isValid = false;
+                        alert(`题 ${q.index} 的正确答案未选择！`);
+                        return;
+                    }
+                    
+                    if (q.type === 'summary' && q.answer.length !== 3) {
+                        isValid = false;
+                        alert(`题 ${q.index} 的总结题需要选择3个正确答案！`);
+                        return;
+                    }
+                });
+                
+                if (!isValid) return;
+                
+                // 创建并下载JSON文件
+                const jsonData = JSON.stringify(questions, null, 2);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Reading_QuestionData.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('文件下载成功！');
+            });
+            
+            // 重置表单
+            document.getElementById('reset-btn').addEventListener('click', function() {
+                if (confirm('确定要重置所有数据吗？')) {
+                    questions.forEach(q => {
+                        q.paragraph = [];
+                        q.question = "";
+                        q.choices = Array(q.type === 'multiple_choice' ? 4 : 6).fill("");
+                        q.answer = q.type === 'multiple_choice' ? "" : [];
+                    });
+                    
+                    // 刷新当前表单
+                    const activeTab = document.querySelector('.tab.active');
+                    if (activeTab) {
+                        showQuestionForm(parseInt(activeTab.dataset.index));
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
