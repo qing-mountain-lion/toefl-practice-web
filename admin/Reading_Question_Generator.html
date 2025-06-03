@@ -690,7 +690,7 @@
                 if (question.type === 'excerpt_highlight') {
                     const copyBtn = formContainer.querySelector(`#copy-excerpt-${index}`);
                     copyBtn.addEventListener('click', function() {
-                        const tag = `<span id="excerpt_highlight_${index}">`;
+                        const tag = `<span class="excerpt_highlight" id="excerpt_highlight_${index}">`;
                         navigator.clipboard.writeText(tag)
                             .then(() => {
                                 alert(`已复制标签到剪贴板: ${tag}`);
@@ -705,7 +705,7 @@
                 if (question.type === 'sentence_insertion') {
                     const copyBtn = formContainer.querySelector(`#copy-insertion-${index}`);
                     copyBtn.addEventListener('click', function() {
-                        const tag = `<span id="sentence_insertion_${index}"></span>`;
+                        const tag = `<span class="sentence_insertion" id="sentence_insertion_${index}"></span>`;
                         navigator.clipboard.writeText(tag)
                             .then(() => {
                                 alert(`已复制标签到剪贴板: ${tag}`);

@@ -13,7 +13,7 @@ body {
 }
 
 .secondary-navbar {
-    height: 30px;
+    height: 40px;
     flex-wrap: nowrap;
 }
 
@@ -62,7 +62,7 @@ body {
     border-radius: 20px;
 }
 .writing-card {
-    border-width: 2.5px;
+    border-width: 1px;
     border-style: solid;
     border-radius: 20px;
 }
