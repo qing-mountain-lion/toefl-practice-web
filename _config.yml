@@ -1,0 +1,31 @@
+theme: 
+title: 
+description: 
+keywords: "blog"
+url: qing-mountain-lion.github.io
+permalink: /:year/:month/:day/:title/
+version: 0.0.1
+
+plugins:
+    - jekyll-optional-front-matter
+    - jekyll-default-layout
+    - jekyll-relative-links
+    - jekyll-redirect-from
+    - jekyll-seo-tag
+    - jekyll-paginate
+    - jekyll-mermaid
+
+relative_links:
+    enabled:     true
+    collections: true
+#titles_from_headings:
+#    enabled:     true
+#    strip_title: false
+#    collections: false
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "Writing"

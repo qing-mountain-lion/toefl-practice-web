@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阅读题JSON生成器</title>
+    <title>阅读题JSON生成器（增强版）</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
             color: #333;
             padding: 20px;
             min-height: 100vh;
@@ -24,7 +24,7 @@
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             overflow: hidden;
         }
         
@@ -64,11 +64,14 @@
         
         .instructions ul {
             padding-left: 25px;
+            columns: 2;
+            column-gap: 30px;
         }
         
         .instructions li {
             margin-bottom: 8px;
             line-height: 1.5;
+            break-inside: avoid;
         }
         
         .question-container {
@@ -83,6 +86,8 @@
             padding: 15px;
             margin-right: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 600px;
+            overflow-y: auto;
         }
         
         .tab {
@@ -94,6 +99,8 @@
             font-weight: 500;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
         }
         
         .tab::before {
@@ -121,6 +128,14 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         
+        .tab-type {
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+        
         .form-container {
             flex: 1;
             background-color: white;
@@ -135,6 +150,7 @@
             border-radius: 8px;
             background-color: #f9f9f9;
             border: 1px solid #eee;
+            position: relative;
         }
         
         .form-section h3 {
@@ -305,6 +321,65 @@
             color: #e74c3c;
         }
         
+        .type-selector {
+            background-color: #e1f5fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #b3e5fc;
+        }
+        
+        .special-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .special-btn {
+            background: linear-gradient(90deg, #9c27b0, #673ab7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .special-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(156, 39, 176, 0.4);
+        }
+        
+        .type-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .type-multiple_choice {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .type-summary {
+            background-color: #2196f3;
+            color: white;
+        }
+        
+        .type-excerpt_highlight {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .type-sentence_insertion {
+            background-color: #9c27b0;
+            color: white;
+        }
+        
         @media (max-width: 768px) {
             .question-container {
                 flex-direction: column;
@@ -316,6 +391,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px;
+                max-height: none;
             }
             
             .tab {
@@ -328,23 +404,33 @@
             .choices-container {
                 grid-template-columns: 1fr;
             }
+            
+            .instructions ul {
+                columns: 1;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>阅读题JSON生成器</h1>
-            <p class="subtitle">填写以下表单生成符合规范的阅读题JSON文件，包含10道题目（9道选择题+1道总结题）</p>
+            <h1>阅读题JSON生成器（增强版）</h1>
+            <p class="subtitle">支持多种题型：选择题、总结题、摘录高亮题和句子插入题</p>
         </header>
         
         <div class="instructions">
             <h2>使用说明</h2>
             <ul>
-                <li><strong>题目类型</strong>：前9题为选择题（multiple_choice），第10题为总结题（summary）</li>
-                <li><strong>段落引用</strong>：选择题需填写段落编号（数字数组），总结题可忽略</li>
-                <li><strong>选项数量</strong>：选择题4个选项，总结题6个选项</li>
-                <li><strong>答案格式</strong>：选择题为单选（A、B、C、D），总结题为3个正确选项（A-F中选择3个）</li>
+                <li><strong>题目类型</strong>：
+                    <span class="type-tag type-multiple_choice">选择题</span>
+                    <span class="type-tag type-summary">总结题</span>
+                    <span class="type-tag type-excerpt_highlight">摘录高亮题</span>
+                    <span class="type-tag type-sentence_insertion">句子插入题</span>
+                </li>
+                <li><strong>段落引用</strong>：选择题、摘录高亮题和句子插入题需填写段落编号（数字数组）</li>
+                <li><strong>选项数量</strong>：选择题4个选项，总结题6个选项，摘录高亮题4个选项，句子插入题无需选项</li>
+                <li><strong>答案格式</strong>：选择题、摘录高亮题和句子插入题为单选（A、B、C、D），总结题为3个正确选项（A-F中选择3个）</li>
+                <li><strong>特殊功能</strong>：摘录高亮题和句子插入题提供复制HTML标签按钮</li>
                 <li><strong>索引</strong>：题目索引自动生成，不可修改</li>
                 <li>填写完成后点击"下载JSON文件"按钮获取结果</li>
             </ul>
@@ -398,8 +484,8 @@
                     type: type,
                     paragraph: [],
                     question: "",
-                    choices: Array(type === 'multiple_choice' ? 4 : 6).fill(""),
-                    answer: type === 'multiple_choice' ? "" : []
+                    choices: Array(type === 'multiple_choice' ? 4 : (type === 'excerpt_highlight' ? 4 : (type === 'summary' ? 6 : 0))).fill(""),
+                    answer: type === 'multiple_choice' || type === 'excerpt_highlight' || type === 'sentence_insertion' ? "" : []
                 });
             }
             
@@ -408,7 +494,17 @@
                 const tab = document.createElement('div');
                 tab.className = 'tab';
                 if (index === 0) tab.classList.add('active');
-                tab.textContent = `题 ${q.index}${q.type === 'summary' ? ' (总结)' : ''}`;
+                
+                // 获取题目类型中文名
+                let typeName = '';
+                switch(q.type) {
+                    case 'multiple_choice': typeName = '选择题'; break;
+                    case 'summary': typeName = '总结题'; break;
+                    case 'excerpt_highlight': typeName = '高亮题'; break;
+                    case 'sentence_insertion': typeName = '插入题'; break;
+                }
+                
+                tab.innerHTML = `题 ${q.index}<span class="tab-type">${typeName}</span>`;
                 tab.dataset.index = q.index;
                 
                 tab.addEventListener('click', () => {
@@ -425,9 +521,46 @@
                 const question = questions[index - 1];
                 formContainer.innerHTML = '';
                 
+                // 获取题目类型中文名
+                let typeName = '';
+                switch(question.type) {
+                    case 'multiple_choice': typeName = '选择题'; break;
+                    case 'summary': typeName = '总结题'; break;
+                    case 'excerpt_highlight': typeName = '摘录高亮题'; break;
+                    case 'sentence_insertion': typeName = '句子插入题'; break;
+                }
+                
                 const formHTML = `
+                    <div class="type-selector">
+                        <div class="input-group">
+                            <label class="required">题目类型</label>
+                            <select id="type-selector-${index}">
+                                <option value="multiple_choice" ${question.type === 'multiple_choice' ? 'selected' : ''}>选择题</option>
+                                <option value="summary" ${question.type === 'summary' ? 'selected' : ''}>总结题</option>
+                                <option value="excerpt_highlight" ${question.type === 'excerpt_highlight' ? 'selected' : ''}>摘录高亮题</option>
+                                <option value="sentence_insertion" ${question.type === 'sentence_insertion' ? 'selected' : ''}>句子插入题</option>
+                            </select>
+                        </div>
+                        
+                        ${question.type === 'excerpt_highlight' || question.type === 'sentence_insertion' ? `
+                        <div class="special-buttons">
+                            ${question.type === 'excerpt_highlight' ? `
+                                <button type="button" class="special-btn" id="copy-excerpt-${index}">
+                                    复制摘录高亮标签
+                                </button>
+                            ` : ''}
+                            
+                            ${question.type === 'sentence_insertion' ? `
+                                <button type="button" class="special-btn" id="copy-insertion-${index}">
+                                    复制句子插入标签
+                                </button>
+                            ` : ''}
+                        </div>
+                        ` : ''}
+                    </div>
+                    
                     <div class="form-section">
-                        <h3>题目 #${question.index} (${question.type === 'multiple_choice' ? '选择题' : '总结题'})</h3>
+                        <h3>题目 #${question.index} (${typeName})</h3>
                         
                         <div class="input-group">
                             <label class="required">题目内容</label>
@@ -437,7 +570,7 @@
                                 required>${question.question}</textarea>
                         </div>
                         
-                        ${question.type === 'multiple_choice' ? `
+                        ${question.type !== 'summary' ? `
                         <div class="input-group">
                             <label class="required">段落引用</label>
                             <input 
@@ -450,6 +583,7 @@
                         ` : ''}
                     </div>
                     
+                    ${question.type !== 'sentence_insertion' ? `
                     <div class="form-section">
                         <h3>选项设置</h3>
                         <div class="choices-container">
@@ -464,29 +598,42 @@
                                             id="choice-${index}-${i}" 
                                             placeholder="请输入选项内容..." 
                                             value="${choice}"
-                                            required>
+                                            ${question.type === 'excerpt_highlight' || question.type === 'multiple_choice' || question.type === 'summary' ? 'required' : ''}>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
                     </div>
+                    ` : ''}
                     
                     <div class="form-section answer-section">
                         <h3>正确答案</h3>
                         <div class="input-group">
-                            <label class="required">${question.type === 'multiple_choice' ? '选择正确答案' : '选择3个正确答案'}</label>
+                            <label class="required">${
+                                question.type === 'multiple_choice' || 
+                                question.type === 'excerpt_highlight' || 
+                                question.type === 'sentence_insertion' 
+                                    ? '选择正确答案' 
+                                    : '选择3个正确答案'
+                            }</label>
                             <div class="answer-options ${question.type === 'summary' ? 'summary-answer' : ''}">
-                                ${question.choices.map((_, i) => {
-                                    const letter = String.fromCharCode(65 + i);
-                                    const isSelected = question.type === 'multiple_choice' 
-                                        ? question.answer === letter 
-                                        : question.answer.includes(letter);
-                                        
+                                ${(question.type === 'sentence_insertion' ? ['A','B','C','D'] : 
+                                  question.choices.map((_, i) => String.fromCharCode(65 + i))).map(letter => {
+                                    let isSelected = false;
+                                    
+                                    if (question.type === 'multiple_choice' || 
+                                        question.type === 'excerpt_highlight' || 
+                                        question.type === 'sentence_insertion') {
+                                        isSelected = question.answer === letter;
+                                    } else if (question.type === 'summary') {
+                                        isSelected = question.answer.includes(letter);
+                                    }
+                                    
                                     return `
                                         <div class="answer-option ${isSelected ? 'selected' : ''}" 
                                             data-value="${letter}">
                                             <input 
-                                                type="${question.type === 'multiple_choice' ? 'radio' : 'checkbox'}" 
+                                                type="${question.type === 'summary' ? 'checkbox' : 'radio'}" 
                                                 name="answer-${index}" 
                                                 value="${letter}" 
                                                 ${isSelected ? 'checked' : ''}
@@ -502,6 +649,73 @@
                 
                 formContainer.innerHTML = formHTML;
                 
+                // 添加类型选择事件
+                const typeSelector = formContainer.querySelector(`#type-selector-${index}`);
+                typeSelector.addEventListener('change', function() {
+                    const newType = this.value;
+                    const question = questions[index - 1];
+                    
+                    // 更新题目类型
+                    question.type = newType;
+                    
+                    // 根据新类型重置字段
+                    if (newType === 'multiple_choice' || newType === 'excerpt_highlight') {
+                        question.choices = Array(4).fill("");
+                        question.answer = "";
+                    } else if (newType === 'summary') {
+                        question.choices = Array(6).fill("");
+                        question.answer = [];
+                    } else if (newType === 'sentence_insertion') {
+                        question.choices = [];
+                        question.answer = "";
+                    }
+                    
+                    // 更新标签页显示
+                    const activeTab = document.querySelector(`.tab[data-index="${index}"]`);
+                    let typeName = '';
+                    switch(newType) {
+                        case 'multiple_choice': typeName = '选择题'; break;
+                        case 'summary': typeName = '总结题'; break;
+                        case 'excerpt_highlight': typeName = '高亮题'; break;
+                        case 'sentence_insertion': typeName = '插入题'; break;
+                    }
+                    activeTab.innerHTML = `题 ${index}<span class="tab-type">${typeName}</span>`;
+                    
+                    // 重新渲染表单
+                    showQuestionForm(index);
+                });
+                
+                // 添加复制按钮事件
+                if (question.type === 'excerpt_highlight') {
+                    const copyBtn = formContainer.querySelector(`#copy-excerpt-${index}`);
+                    copyBtn.addEventListener('click', function() {
+                        const tag = `<span id="excerpt_highlight_${index}">`;
+                        navigator.clipboard.writeText(tag)
+                            .then(() => {
+                                alert(`已复制标签到剪贴板: ${tag}`);
+                            })
+                            .catch(err => {
+                                console.error('复制失败:', err);
+                                alert('复制失败，请手动复制');
+                            });
+                    });
+                }
+                
+                if (question.type === 'sentence_insertion') {
+                    const copyBtn = formContainer.querySelector(`#copy-insertion-${index}`);
+                    copyBtn.addEventListener('click', function() {
+                        const tag = `<span id="sentence_insertion_${index}"></span>`;
+                        navigator.clipboard.writeText(tag)
+                            .then(() => {
+                                alert(`已复制标签到剪贴板: ${tag}`);
+                            })
+                            .catch(err => {
+                                console.error('复制失败:', err);
+                                alert('复制失败，请手动复制');
+                            });
+                    });
+                }
+                
                 // 添加答案选择事件
                 const answerOptions = formContainer.querySelectorAll('.answer-option');
                 answerOptions.forEach(option => {
@@ -510,12 +724,15 @@
                         const questionIndex = index;
                         const question = questions[questionIndex - 1];
                         
-                        if (question.type === 'multiple_choice') {
+                        if (question.type === 'multiple_choice' || 
+                            question.type === 'excerpt_highlight' || 
+                            question.type === 'sentence_insertion') {
+                            
                             answerOptions.forEach(opt => opt.classList.remove('selected'));
                             this.classList.add('selected');
                             question.answer = value;
                             this.querySelector('input').checked = true;
-                        } else {
+                        } else if (question.type === 'summary') {
                             this.classList.toggle('selected');
                             const input = this.querySelector('input');
                             input.checked = !input.checked;
@@ -542,19 +759,28 @@
                     questions[index - 1].question = this.value;
                 });
                 
-                if (question.type === 'multiple_choice') {
-                    formContainer.querySelector(`#paragraph-${index}`).addEventListener('input', function() {
-                        // 将逗号分隔的数字字符串转换为数字数组
-                        const values = this.value.split(',').map(num => parseInt(num.trim())).filter(num => !isNaN(num));
-                        questions[index - 1].paragraph = values;
-                    });
+                if (question.type !== 'summary') {
+                    const paragraphInput = formContainer.querySelector(`#paragraph-${index}`);
+                    if (paragraphInput) {
+                        paragraphInput.addEventListener('input', function() {
+                            // 将逗号分隔的数字字符串转换为数字数组
+                            const values = this.value.split(',').map(num => {
+                                const parsed = parseInt(num.trim());
+                                return isNaN(parsed) ? null : parsed;
+                            }).filter(num => num !== null);
+                            questions[index - 1].paragraph = values;
+                        });
+                    }
                 }
                 
                 // 添加选项输入事件
                 for (let i = 0; i < question.choices.length; i++) {
-                    formContainer.querySelector(`#choice-${index}-${i}`).addEventListener('input', function() {
-                        questions[index - 1].choices[i] = this.value;
-                    });
+                    const choiceInput = formContainer.querySelector(`#choice-${index}-${i}`);
+                    if (choiceInput) {
+                        choiceInput.addEventListener('input', function() {
+                            questions[index - 1].choices[i] = this.value;
+                        });
+                    }
                 }
             }
             
@@ -564,48 +790,54 @@
             // 下载JSON文件
             document.getElementById('download-btn').addEventListener('click', function() {
                 // 验证所有题目是否填写完整
-                let isValid = true;
+                let hasMissingFields = false;
+                let missingFieldsMessage = "";
                 
                 questions.forEach((q, index) => {
                     // 验证题目内容
                     if (!q.question.trim()) {
-                        isValid = false;
-                        alert(`题 ${q.index} 的题目内容不能为空！`);
-                        return;
+                        hasMissingFields = true;
+                        missingFieldsMessage += `题 ${q.index} 的题目内容不能为空！\n`;
                     }
                     
-                    // 验证选择题的段落引用
-                    if (q.type === 'multiple_choice' && q.paragraph.length === 0) {
-                        isValid = false;
-                        alert(`题 ${q.index} 的段落引用不能为空！`);
-                        return;
+                    // 验证非总结题的段落引用
+                    if (q.type !== 'summary' && q.paragraph.length === 0) {
+                        hasMissingFields = true;
+                        missingFieldsMessage += `题 ${q.index} 的段落引用不能为空！\n`;
                     }
                     
-                    // 验证所有选项
-                    for (let i = 0; i < q.choices.length; i++) {
-                        if (!q.choices[i].trim()) {
-                            isValid = false;
-                            const letter = String.fromCharCode(65 + i);
-                            alert(`题 ${q.index} 的选项 ${letter} 不能为空！`);
-                            return;
+                    // 验证选项
+                    if (q.type !== 'sentence_insertion') {
+                        for (let i = 0; i < q.choices.length; i++) {
+                            if (!q.choices[i].trim()) {
+                                hasMissingFields = true;
+                                const letter = String.fromCharCode(65 + i);
+                                missingFieldsMessage += `题 ${q.index} 的选项 ${letter} 不能为空！\n`;
+                            }
                         }
                     }
                     
                     // 验证答案
-                    if (q.type === 'multiple_choice' && !q.answer) {
-                        isValid = false;
-                        alert(`题 ${q.index} 的正确答案未选择！`);
-                        return;
+                    if ((q.type === 'multiple_choice' || 
+                         q.type === 'excerpt_highlight' || 
+                         q.type === 'sentence_insertion') && !q.answer) {
+                        hasMissingFields = true;
+                        missingFieldsMessage += `题 ${q.index} 的正确答案未选择！\n`;
                     }
                     
                     if (q.type === 'summary' && q.answer.length !== 3) {
-                        isValid = false;
-                        alert(`题 ${q.index} 的总结题需要选择3个正确答案！`);
-                        return;
+                        hasMissingFields = true;
+                        missingFieldsMessage += `题 ${q.index} 的总结题需要选择3个正确答案！\n`;
                     }
                 });
                 
-                if (!isValid) return;
+                if (hasMissingFields) {
+                    if (confirm(`以下必填项未填写完整：\n\n${missingFieldsMessage}\n是否仍要下载？`)) {
+                        // 用户确认继续下载
+                    } else {
+                        return;
+                    }
+                }
                 
                 // 创建并下载JSON文件
                 const jsonData = JSON.stringify(questions, null, 2);
@@ -629,8 +861,8 @@
                     questions.forEach(q => {
                         q.paragraph = [];
                         q.question = "";
-                        q.choices = Array(q.type === 'multiple_choice' ? 4 : 6).fill("");
-                        q.answer = q.type === 'multiple_choice' ? "" : [];
+                        q.choices = Array(q.type === 'multiple_choice' || q.type === 'excerpt_highlight' ? 4 : (q.type === 'summary' ? 6 : 0)).fill("");
+                        q.answer = q.type === 'multiple_choice' || q.type === 'excerpt_highlight' || q.type === 'sentence_insertion' ? "" : [];
                     });
                     
                     // 刷新当前表单

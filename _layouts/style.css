@@ -1,0 +1,92 @@
+:root {
+    --primary-color: #37696E;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.primary-navbar {
+    height: 60px;
+    background-color: var(--primary-color);
+}
+
+.secondary-navbar {
+    height: 30px;
+    flex-wrap: nowrap;
+}
+
+.next-btn {
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: 15px;
+    border-width: 0px;
+    padding: 10px 25px;
+}
+.next-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.next-btn:active {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.hide-hint-btn {
+    border-width: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--primary-color);
+}
+.hide-hint-btn:hover {
+    filter: brightness(70%);
+}
+.hide-hint-btn:active {
+    color: var(--primary-color);
+}
+
+.progress-bar-bg {
+    background-color: var(--primary-color);
+}
+
+.question-zone {
+    height: calc(100vh - 110px);
+}
+
+.card-container {
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.material-card {
+    border: 2.5px solid var(--primary-color);
+    border-radius: 20px;
+}
+.writing-card {
+    border-width: 2.5px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+#hideWordCount {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.disabled-btn {
+    background-color: #e9ecef !important;
+    color: black !important;
+    cursor: not-allowed;
+}
+
+.word-count {
+    margin-left: 10px;
+}
+
+/* .timer-section {
+    display: flex;
+    align-items: center;
+} */
+
+.eye-icon {
+    margin-right: 5px;
+}
