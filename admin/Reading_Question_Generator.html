@@ -485,10 +485,10 @@
                     paragraph: [],
                     question: "",
                     choices: Array(type === 'multiple_choice' ? 4 : (type === 'excerpt_highlight' ? 4 : (type === 'summary' ? 6 : 0))).fill(""),
-                    answer: type === 'multiple_choice' || type === 'excerpt_highlight' || type === 'sentence_insertion' ? "" : []
+                    // 修改：选择题的answer改为数组
+                    answer: type === 'multiple_choice' || type === 'summary' ? [] : (type === 'excerpt_highlight' || type === 'sentence_insertion' ? "" : [])
                 });
             }
-            
             // 生成标签页
             questions.forEach((q, index) => {
                 const tab = document.createElement('div');
@@ -618,12 +618,13 @@
                             }</label>
                             <div class="answer-options ${question.type === 'summary' ? 'summary-answer' : ''}">
                                 ${(question.type === 'sentence_insertion' ? ['A','B','C','D'] : 
-                                  question.choices.map((_, i) => String.fromCharCode(65 + i))).map(letter => {
+                                question.choices.map((_, i) => String.fromCharCode(65 + i))).map(letter => {
                                     let isSelected = false;
                                     
-                                    if (question.type === 'multiple_choice' || 
-                                        question.type === 'excerpt_highlight' || 
-                                        question.type === 'sentence_insertion') {
+                                    if (question.type === 'multiple_choice') {
+                                        isSelected = question.answer.includes(letter);
+                                    } else if (question.type === 'excerpt_highlight' || 
+                                            question.type === 'sentence_insertion') {
                                         isSelected = question.answer === letter;
                                     } else if (question.type === 'summary') {
                                         isSelected = question.answer.includes(letter);
@@ -633,7 +634,7 @@
                                         <div class="answer-option ${isSelected ? 'selected' : ''}" 
                                             data-value="${letter}">
                                             <input 
-                                                type="${question.type === 'summary' ? 'checkbox' : 'radio'}" 
+                                                type="${question.type === 'multiple_choice' || question.type === 'summary' ? 'checkbox' : 'radio'}" 
                                                 name="answer-${index}" 
                                                 value="${letter}" 
                                                 ${isSelected ? 'checked' : ''}
@@ -724,15 +725,27 @@
                         const questionIndex = index;
                         const question = questions[questionIndex - 1];
                         
-                        if (question.type === 'multiple_choice' || 
-                            question.type === 'excerpt_highlight' || 
-                            question.type === 'sentence_insertion') {
+                        if (question.type === 'multiple_choice') {
+                            // 选择题：多选逻辑
+                            this.classList.toggle('selected');
+                            const input = this.querySelector('input');
+                            input.checked = !input.checked;
                             
-                            answerOptions.forEach(opt => opt.classList.remove('selected'));
-                            this.classList.add('selected');
-                            question.answer = value;
-                            this.querySelector('input').checked = true;
+                            // 更新答案数组
+                            question.answer = [];
+                            formContainer.querySelectorAll(`input[name="answer-${index}"]:checked`).forEach(chk => {
+                                question.answer.push(chk.value);
+                            });
+                            
+                            // 确保最多选择2个（双选题）
+                            if (question.answer.length > 2) {
+                                question.answer.pop();
+                                this.classList.remove('selected');
+                                input.checked = false;
+                                alert('选择题最多只能选择2个正确答案！');
+                            }
                         } else if (question.type === 'summary') {
+                            // 总结题：多选逻辑
                             this.classList.toggle('selected');
                             const input = this.querySelector('input');
                             input.checked = !input.checked;
@@ -750,6 +763,12 @@
                                 input.checked = false;
                                 alert('总结题最多只能选择3个正确答案！');
                             }
+                        } else {
+                            // 其他题型：单选逻辑
+                            answerOptions.forEach(opt => opt.classList.remove('selected'));
+                            this.classList.add('selected');
+                            question.answer = value;
+                            this.querySelector('input').checked = true;
                         }
                     });
                 });
@@ -818,16 +837,23 @@
                     }
                     
                     // 验证答案
-                    if ((q.type === 'multiple_choice' || 
-                         q.type === 'excerpt_highlight' || 
+                    if ((q.type === 'excerpt_highlight' || 
                          q.type === 'sentence_insertion') && !q.answer) {
                         hasMissingFields = true;
                         missingFieldsMessage += `题 ${q.index} 的正确答案未选择！\n`;
                     }
-                    
+
                     if (q.type === 'summary' && q.answer.length !== 3) {
                         hasMissingFields = true;
                         missingFieldsMessage += `题 ${q.index} 的总结题需要选择3个正确答案！\n`;
+                    }
+
+                    if (q.type === 'multiple_choice') {
+                        // 选择题：答案数组长度必须在1到2之间
+                        if (question.answer.length < 1 || question.answer.length > 2) {
+                            hasMissingFields = true;
+                            missingFieldsMessage += `题 ${question.index} 的选择题需要选择1-2个正确答案！\n`;
+                        }
                     }
                 });
                 
@@ -862,7 +888,7 @@
                         q.paragraph = [];
                         q.question = "";
                         q.choices = Array(q.type === 'multiple_choice' || q.type === 'excerpt_highlight' ? 4 : (q.type === 'summary' ? 6 : 0)).fill("");
-                        q.answer = q.type === 'multiple_choice' || q.type === 'excerpt_highlight' || q.type === 'sentence_insertion' ? "" : [];
+                        q.answer = q.type === 'excerpt_highlight' || q.type === 'sentence_insertion' ? "" : [];
                     });
                     
                     // 刷新当前表单

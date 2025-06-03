@@ -1,6 +1,3 @@
----
----
-
 ## Cereals and Legumes: A Partnership
 
 Cereals are flowering grasses that sprout, flower, seed, and die in the space of a year, which is why gardeners refer to them as annuals. Grown for their seeds or kernels, cereals are excellent sources of energy: although they lack some amino acids, as well as calcium, vitamin A, and vitamin C, they provide starch and oil, and in some cases, considerable amounts of protein. Once ripe, the kernels are relatively easy to store, and they retain their nutrients for a long time. Even the stalks of cereals are useful as animal food, as bedding in stables and barns, and as a building material. A major drawback with cereals is that they depend on the soil for nitrogen. Without fertilization they eventually exhaust the fields they are growing in, but despite this, two cereals (wheat and barley) were the very first plants to be domesticated (grown for human use); and a third (rye) may have been cultivated, or even domesticated, at about the same time. Today, cereal crops including wheat, rice, maize, sorghum, millet, and oats provide most of the calories in the human diet.
