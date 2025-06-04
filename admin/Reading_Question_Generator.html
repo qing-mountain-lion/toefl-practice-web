@@ -850,9 +850,9 @@
 
                     if (q.type === 'multiple_choice') {
                         // 选择题：答案数组长度必须在1到2之间
-                        if (question.answer.length < 1 || question.answer.length > 2) {
+                        if (q.answer.length < 1 || q.answer.length > 2) {
                             hasMissingFields = true;
-                            missingFieldsMessage += `题 ${question.index} 的选择题需要选择1-2个正确答案！\n`;
+                            missingFieldsMessage += `题 ${q.index} 的选择题需要选择1-2个正确答案！\n`;
                         }
                     }
                 });

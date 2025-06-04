@@ -1,5 +1,6 @@
 :root {
     --primary-color: #37696E;
+    --primary-color-dark: #2d4f4f;
 }
 
 body {
@@ -23,6 +24,8 @@ body {
     border-radius: 15px;
     border-width: 0px;
     padding: 10px 25px;
+    display: flex;
+    align-items: center;
 }
 .next-btn:hover {
     background-color: rgba(255, 255, 255, 0.9);
@@ -30,6 +33,25 @@ body {
 .next-btn:active {
     background-color: rgba(255, 255, 255, 0.7);
 }
+
+.other-btn {
+    background-color: transparent;
+    color: white;
+    border-color: gray;
+    border-radius: 15px;
+    border-width: 2.5px;
+    padding: 10px 25px;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+.other-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+.other-btn:active {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 .hide-hint-btn {
     border-width: 0px;
     background-color: rgba(0, 0, 0, 0);
@@ -57,12 +79,35 @@ body {
     padding: 20px;
 }
 
-.material-card {
+.single-select-button {
+    border: 1px solid gray;
+    border-radius: 50%;
+    background-color: white;
+    width: 25px;
+    height: 26px;
+    display: inline-block;
+    margin-top: 0px;
+}
+.single-select-button:checked {
+    background-color: black;
+    background-image: none;
+    border-color: black;
+}
+
+/* Writing Exclusive */
+.writing-material-card {
     border: 2.5px solid var(--primary-color);
     border-radius: 20px;
 }
-.writing-card {
+.writing-input-card {
     border-width: 1px;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+/* Reading Exclusive */
+.reading-material-card {
+    border-width: 2.5px;
     border-style: solid;
     border-radius: 20px;
 }
@@ -80,13 +125,4 @@ body {
 
 .word-count {
     margin-left: 10px;
-}
-
-/* .timer-section {
-    display: flex;
-    align-items: center;
-} */
-
-.eye-icon {
-    margin-right: 5px;
 }

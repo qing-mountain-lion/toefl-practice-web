@@ -3,7 +3,7 @@ title:
 description: 
 keywords: "blog"
 url: qing-mountain-lion.github.io
-permalink: /:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title
 version: 0.0.1
 
 plugins:
