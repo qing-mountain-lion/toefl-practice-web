@@ -1,12 +1,21 @@
-{{ include head.html }}
+{% include head.html %}
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<link href="../assets/style.css" rel="stylesheet"></link> -->
+
+
 
     <!-- 蓝绿色导航栏 -->
     <nav class="navbar primary-navbar">
         <div class="container-fluid">
             <a class="navbar-brand text-white ms-3" href="#">Home</a>
             <div class="d-flex">
-                <button class="border-0 next-btn" style="font-weight: bold;">Next 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <button class="border-0 other-btn" id="back-btn" style="font-weight: bold;" disabled aria-disabled="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left me-1" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                      </svg> Back
+                </button>
+                <button class="border-0 next-btn" id="next-btn" style="font-weight: bold;">Next 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right ms-1" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
                     </svg>
                 </button>
@@ -17,18 +26,18 @@
     <!-- 灰色小题指示行 -->
     <nav class="navbar bg-light mb-2 secondary-navbar">
             <div class="container-fluid row pe-0">
-                <span class="navbar-text ms-3 col-3" style="font-weight: bold;">Writing | Section 1 of 1</span>
+                <span class="navbar-text ms-3 col-3" style="font-weight: bold;">Reading | Question <span id="current_question">1</span> of <span id="total_question">20</span></span>
                 
                 <!-- 进度条 -->
                 <div class="w-50 mx-auto col-auto">
-                    <div class="progress">
-                        <div class="progress-bar-bg" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20">
+                        <div class="progress-bar-bg" id="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20"></div>
                     </div>
                 </div>
                 
                 <!-- 时间显示 -->
                 <div class="col-3 justify-content-end d-flex align-items-center">
-                    <span class="timer-section" id="timer">10:00</span>
+                    <span class="timer-section" id="timer">36:00</span>
                     <button id="hideTimer" class="hide-hint-btn ms-2" style="font-weight: bold;">Hide Timer</button>
                 </div>
             </div>
@@ -37,54 +46,61 @@
     <!-- 主体内容 -->
     <main>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row gx-5">
             <!-- 左侧问题区域 -->
-            <div class="col-5 question-zone">
-                <div class="card material-card mb-3" style="height: 100%;">
-                    <div class="card-body card-container">
+            <div class="col-6 question-zone">
+                <div class="card reading-material-card mb-3" style="height: 100%;">
+                    <div class="card-body card-container m-1">
                         {{  content  }}
                     </div>
                 </div>
             </div>
 
             <!-- 右侧回答区域 -->
-            <div class="col-7">
-                <div class="row question-zone">
-                    <!-- 学生观点卡片 -->
-                    <div class="col-12" style="height: 47.5%;">
-                        <div class="card mb-3 border-0" style="height: 100%;">
-                            <div class="card-body">
-                                <!-- Claire的观点 -->
-                                <div class="d-flex mb-3">
-                                </div>
-                                
-                                <!-- Paul的观点 -->
-                                <div class="d-flex">
-                                </div>
+            <div class="col-6 question-zone">
+                <div class="alert alert-info p-4 mb-4" role="alert" style="background-color: #D6F8F0;">
+                    Select <span id="alert-select-num">one</span> of the statements below.
+                </div>
+                <div class="card writing-card d-flex justify-content-center border-0" style="height: 100%;">
+                    <div class="card-body card-container px-0">
+                        <p id="question"></p>
+                        <div class="ms-3 g-4" id="options">
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: flex;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionA" value="optionA">
+                                <label class="form-check-label" for="optionA">
+                                    1111
+                                </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-0" style="height: 5%;"></div>
-                    <!-- 写作区域 -->
-                    <div class="col-12 mt-0" style="height: 47.5%;">
-                        <div class="card writing-card" style="height: 100%;">
-                            <div class="card-header d-flex justify-content-end align-items-center" style="height: 60px;">
-                                <div class="d-flex justify-content-end align-items-center" style="height: 30px;">
-                                    <!-- 操作按钮 -->
-                                    <div class="d-flex justify-content-end">
-                                        <!-- <button id="cutBtn" class="btn action-btn me-2 disabled-btn">Cut</button>
-                                        <button id="pasteBtn" class="btn action-btn me-2 disabled-btn">Paste</button>
-                                        <button id="undoBtn" class="btn action-btn me-2 disabled-btn">Undo</button>
-                                        <button id="redoBtn" class="btn action-btn me-2 disabled-btn">Redo</button> -->
-                                        <div class="d-flex align-items-center">
-                                            <button id="hideWordCount" class="hide-hint-btn">Hide Word Count</button>
-                                            <span class="word-count">0</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: flex;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionB" value="optionB">
+                                <label class="form-check-label" for="optionB">
+                                    2222
+                                </label>
                             </div>
-                            <!-- 文本输入区 -->
-                            <textarea id="writingArea" class="form-control card-body border-0" style="resize: none; border-radius: 0px 0px 20px 20px;"></textarea>
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: flex;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionC" value="optionC">
+                                <label class="form-check-label" for="optionC">
+                                    3333
+                                </label>
+                            </div>
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: flex;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionD" value="optionD">
+                                <label class="form-check-label" for="optionD">
+                                    4444
+                                </label>
+                            </div>
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: none;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionE" value="optionE">
+                                <label class="form-check-label" for="optionE">
+                                    5555
+                                </label>
+                            </div>
+                            <div class="row form-check mb-4" style="flex-wrap: nowrap; display: none;">
+                                <input class="form-check-input single-select-button me-1" type="radio" name="options" id="optionF" value="optionF">
+                                <label class="form-check-label" for="optionF">
+                                    6666
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,4 +109,9 @@
     </div>
     </main>
 
-{{ include foot.html }}
+<script src="/toefl-practice-web/assets/Reading.js"></script>
+
+{% include foot.html %}
+
+<!-- <script src="../assets/Reading.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script> -->

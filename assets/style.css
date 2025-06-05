@@ -33,6 +33,10 @@ body {
 .next-btn:active {
     background-color: rgba(255, 255, 255, 0.7);
 }
+.next-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+}
 
 .other-btn {
     background-color: transparent;
@@ -49,7 +53,11 @@ body {
     color: rgba(255, 255, 255, 0.9);
 }
 .other-btn:active {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
+}
+.other-btn:disabled {
+    color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
 }
 
 .hide-hint-btn {
@@ -77,6 +85,10 @@ body {
     overflow-y: auto;
     border-radius: 10px;
     padding: 20px;
+}
+
+h2 {
+    text-align: center;
 }
 
 .single-select-button {
@@ -111,16 +123,25 @@ body {
     border-style: solid;
     border-radius: 20px;
 }
+.excerpt_highlight {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 6px;
+    padding: .25em;
+}
+.sentence_insertion {
+    width: 14px;
+    height: 20px;
+    background-color: black;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-right: .2em;
+    cursor: pointer;
+}
 
 #hideWordCount {
     font-weight: bold;
     color: var(--primary-color);
-}
-
-.disabled-btn {
-    background-color: #e9ecef !important;
-    color: black !important;
-    cursor: not-allowed;
 }
 
 .word-count {
