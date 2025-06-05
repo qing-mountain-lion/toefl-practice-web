@@ -39,7 +39,7 @@ const progressBar = document.getElementById('progress-bar');
 const alertSelectNum = document.getElementById('alert-select-num');
 const backBtn = document.getElementById('back-btn');
 const nextBtn = document.getElementById('next-btn');
-const optionButtons = document.querySelectorAll('.option-button');
+const optionButtons = document.querySelectorAll('.single-select-button');
 const optionContainers = {
     A: document.getElementById('optionA'),
     B: document.getElementById('optionB'),
