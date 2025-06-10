@@ -139,7 +139,8 @@
     "paragraph": [
       1
     ],
-    "question": "Look at the four squares [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?\nAlthough they must be replanted each year, they can be grown for a variety of uses.",
+    "question": "Look at the four squares [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?",
+    "sentence": "Although they must be replanted each year, they can be grown for a variety of uses.",
     "choices": [],
     "answer": "A"
   },
@@ -153,8 +154,8 @@
       "Legumes contain a large amount of protein and, when they are eaten with cereals, provide all the amino acids essential to humans.",
       "Both the seeds and stalks of wheat and barley were eaten by early agriculturalists, who needed to take in enough nutrients and calories to work the fields.",
       "Planting cereals and legumes together sped up their growing period, which meant that they could both be harvested many times over a period of several weeks to several months.",
-      "E.Because soil conditions in New Guinea and the Jordan Valley made it difficult to grow cereals such as wheat and barley, these regions began to cultivate figs and tubers instead.",
-      "F.Cereals and legumes were typically domesticated well before succulent fruits, which are harder to cultivate, and became staples in early agricultural societies."
+      "Because soil conditions in New Guinea and the Jordan Valley made it difficult to grow cereals such as wheat and barley, these regions began to cultivate figs and tubers instead.",
+      "Cereals and legumes were typically domesticated well before succulent fruits, which are harder to cultivate, and became staples in early agricultural societies."
     ],
     "answer": [
       "A",

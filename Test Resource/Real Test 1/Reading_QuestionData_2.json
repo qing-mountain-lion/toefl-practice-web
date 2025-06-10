@@ -143,7 +143,8 @@
     "paragraph": [
       4
     ],
-    "question": "Look at the four squares  [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?\nBut even from this limited perspective, the answer is not completely straightforward.",
+    "question": "Look at the four squares  [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?",
+    "sentence": "But even from this limited perspective, the answer is not completely straightforward.",
     "choices": [],
     "answer": "C"
   },
@@ -157,8 +158,8 @@
       "A longer warm season in Alaska caused a sharp increase in the number of bark beetles, leading to the destruction of spruce forests, which in turn seriously affected many other species.",
       "Sometimes ecosystems are able to recover from disturbances or to develop into different, but healthy, systems, but in extreme cases, they may collapse completely.",
       "The loss of spruce forests caused an epidemic in mycorrhizal fungi, and these fungi damaged the roots of many plants, making them unable to take in water and nutrients.",
-      "E.Whereas some types of changes are good for the majority of species in an ecosystem, ecologists believe that most disturbances to ecosystems are bad overall.",
-      "F.Coral reefs may die off as a result of the global increase in temperatures, but after a transition period as a dead zone, they are able to return to their original state."
+      "Whereas some types of changes are good for the majority of species in an ecosystem, ecologists believe that most disturbances to ecosystems are bad overall.",
+      "Coral reefs may die off as a result of the global increase in temperatures, but after a transition period as a dead zone, they are able to return to their original state."
     ],
     "answer": [
       "A",

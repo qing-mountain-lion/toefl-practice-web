@@ -29,13 +29,13 @@ h2 {
     border-style: solid;
     border-radius: 20px;
 }
-.excerpt_highlight {
+.card-body .excerpt_highlight {
     background-color: var(--primary-color);
     color: white;
     border-radius: 6px;
     padding: .25em;
 }
-.sentence_insertion {
+.card-body .sentence_insertion {
     width: 14px;
     height: 20px;
     background-color: black;

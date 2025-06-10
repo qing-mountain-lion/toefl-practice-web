@@ -465,6 +465,7 @@
         </div>
         
         <div class="buttons">
+            <button id="import-btn">导入JSON文件</button>
             <button class="download-btn" id="download-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -508,31 +509,37 @@
             }
             
             // 生成标签页
-            questions.forEach((q, index) => {
-                const tab = document.createElement('div');
-                tab.className = 'tab';
-                if (index === 0) tab.classList.add('active');
-                
-                // 获取题目类型中文名
-                let typeName = '';
-                switch(q.type) {
-                    case 'multiple_choice': typeName = '选择题'; break;
-                    case 'summary': typeName = '总结题'; break;
-                    case 'excerpt_highlight': typeName = '高亮题'; break;
-                    case 'sentence_insertion': typeName = '插入题'; break;
-                }
-                
-                tab.innerHTML = `题 ${q.index}<span class="tab-type">${typeName}</span>`;
-                tab.dataset.index = q.index;
-                
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    showQuestionForm(q.index);
+            function generateTabs() {
+                tabsContainer.innerHTML = '';
+                questions.forEach((q, index) => {
+                    const tab = document.createElement('div');
+                    tab.className = 'tab';
+                    if (index === 0) tab.classList.add('active');
+                    
+                    // 获取题目类型中文名
+                    let typeName = '';
+                    switch(q.type) {
+                        case 'multiple_choice': typeName = '选择题'; break;
+                        case 'summary': typeName = '总结题'; break;
+                        case 'excerpt_highlight': typeName = '高亮题'; break;
+                        case 'sentence_insertion': typeName = '插入题'; break;
+                    }
+                    
+                    tab.innerHTML = `题 ${q.index}<span class="tab-type">${typeName}</span>`;
+                    tab.dataset.index = q.index;
+                    
+                    tab.addEventListener('click', () => {
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        showQuestionForm(q.index);
+                    });
+                    
+                    tabsContainer.appendChild(tab);
                 });
-                
-                tabsContainer.appendChild(tab);
-            });
+            }
+            
+            // 初始化标签页
+            generateTabs();
             
             // 转义特殊字符（防注入）
             function escapeHtml(unsafe) {
@@ -668,13 +675,13 @@
                             }</label>
                             <div class="answer-options ${question.type === 'summary' ? 'summary-answer' : ''}">
                                 ${(question.type === 'sentence_insertion' ? ['A','B','C','D'] : 
-                                  question.choices.map((_, i) => String.fromCharCode(65 + i))).map(letter => {
+                                question.choices.map((_, i) => String.fromCharCode(65 + i))).map(letter => {
                                     let isSelected = false;
                                     
                                     if (question.type === 'multiple_choice') {
                                         isSelected = question.answer.includes(letter);
                                     } else if (question.type === 'excerpt_highlight' || 
-                                               question.type === 'sentence_insertion') {
+                                            question.type === 'sentence_insertion') {
                                         isSelected = question.answer === letter;
                                     } else if (question.type === 'summary') {
                                         isSelected = question.answer.includes(letter);
@@ -733,15 +740,7 @@
                     }
                     
                     // 更新标签页显示
-                    const activeTab = document.querySelector(`.tab[data-index="${index}"]`);
-                    let typeName = '';
-                    switch(newType) {
-                        case 'multiple_choice': typeName = '选择题'; break;
-                        case 'summary': typeName = '总结题'; break;
-                        case 'excerpt_highlight': typeName = '高亮题'; break;
-                        case 'sentence_insertion': typeName = '插入题'; break;
-                    }
-                    activeTab.innerHTML = `题 ${index}<span class="tab-type">${typeName}</span>`;
+                    generateTabs();
                     
                     // 重新渲染表单
                     showQuestionForm(index);
@@ -883,6 +882,61 @@
             // 显示第一个问题
             showQuestionForm(1);
             
+            // 导入JSON文件
+            document.getElementById('import-btn').addEventListener('click', function() {
+                // 创建文件输入元素
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = '.json';
+                
+                fileInput.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const jsonData = JSON.parse(e.target.result);
+                            
+                            // 验证导入的数据格式
+                            if (!Array.isArray(jsonData) || jsonData.length !== 10) {
+                                alert('导入失败：JSON格式不正确，必须是包含10道题目的数组');
+                                return;
+                            }
+                            
+                            // 更新questions数组
+                            jsonData.forEach((q, i) => {
+                                if (i < questions.length) {
+                                    // 只更新存在的字段
+                                    questions[i] = {
+                                        ...questions[i],
+                                        ...q,
+                                        index: i + 1 // 确保索引正确
+                                    };
+                                }
+                            });
+                            
+                            // 重新生成标签页
+                            generateTabs();
+                            
+                            // 刷新当前表单
+                            const activeTab = document.querySelector('.tab.active');
+                            if (activeTab) {
+                                showQuestionForm(parseInt(activeTab.dataset.index));
+                            }
+                            
+                            alert('JSON文件导入成功！');
+                        } catch (error) {
+                            console.error('JSON解析错误:', error);
+                            alert('导入失败：JSON解析错误 - ' + error.message);
+                        }
+                    };
+                    reader.readAsText(file);
+                };
+                
+                fileInput.click();
+            });
+            
             // 下载JSON文件
             document.getElementById('download-btn').addEventListener('click', function() {
                 // 验证所有题目是否填写完整
@@ -927,7 +981,7 @@
                             missingFieldsMessage += `题 ${q.index} 的选择题需要选择1-2个正确答案！\n`;
                         }
                     } else if (q.type === 'excerpt_highlight' || 
-                               q.type === 'sentence_insertion') {
+                            q.type === 'sentence_insertion') {
                         if (!q.answer) {
                             hasMissingFields = true;
                             missingFieldsMessage += `题 ${q.index} 的正确答案未选择！\n`;
@@ -975,6 +1029,9 @@
                         q.explanation = "";
                         q.sentence = "";
                     });
+                    
+                    // 重新生成标签页
+                    generateTabs();
                     
                     // 刷新当前表单
                     const activeTab = document.querySelector('.tab.active');
