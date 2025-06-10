@@ -2,7 +2,7 @@
 
 ## TOEFL阅读题目JSON格式编辑器
 
-<a class="btn btn-primary w-100" href="/admin/Reading_Question_Generator">打开编辑器</a>
+<a class="btn btn-primary w-100" href="{{ site.url }}/admin/Reading_Question_Generator">打开编辑器</a>
 
 包含TOEFL阅读单多项选择题、摘要题、句子插入题和总结题的JSON格式编辑器。
 
@@ -11,4 +11,4 @@
 ## 真题页面
 
 - Real Test 1
-    - [Reading](/Test Resource/Real Test 1/Reading.md)
+    - [Reading]({{ site.url }}/Test Resource/Real Test 1/Reading.md)

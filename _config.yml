@@ -2,7 +2,7 @@ theme:
 title: 
 description: 
 keywords: "blog"
-url: qing-mountain-lion.github.io/toefl-practice-web
+url: https://qing-mountain-lion.github.io/toefl-practice-web
 permalink: /:year/:month/:day/:title
 version: 0.0.1
 
