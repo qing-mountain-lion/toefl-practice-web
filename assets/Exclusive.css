@@ -20,6 +20,10 @@
 
 /* Reading Exclusive */
 
+h2 {
+    text-align: center;
+}
+
 .reading-material-card {
     border-width: 2.5px;
     border-style: solid;

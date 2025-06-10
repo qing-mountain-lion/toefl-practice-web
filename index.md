@@ -11,4 +11,4 @@
 ## 真题页面
 
 - Real Test 1
-    - [Reading]({{ site.url }}/Test Resource/Real Test 1/Reading.md)
+    - [Reading]({{ site.url }}/Test Resource/Real Test 1/Reading)

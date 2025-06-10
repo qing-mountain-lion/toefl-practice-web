@@ -1,18 +1,34 @@
 /* Styles that used more than one section in the test (e.g. Listening and Reading) */
 
+[data-bs-theme="official"] * {
+    --primary-color: #37696E;
+    --primary-color-dark: #2d4f4f;
+}
+[data-bs-theme="black"] * {
+    --primary-color: #000000;
+    --primary-color-dark: #000000;
+}
+[data-bs-theme="gray"] * {
+    --primary-color: #E0E0E0;
+    --primary-color-dark: #899197;
+}
+[data-bs-theme="green"] * {
+    --primary-color: #64B190;
+    --primary-color-dark: #4A7071;
+}
+[data-bs-theme="blue"] * {
+    --primary-color: #7AD4D0;
+    --primary-color-dark: #64A0A8;
+}
+
 :root {
     --primary-color: #37696E;
-    /* --primary-color: #000000; */
     --primary-color-dark: #2d4f4f;
 }
 
 body {
     overflow: hidden;
     height: 100vh;
-}
-
-h2 {
-    text-align: center;
 }
 
 .primary-navbar {
