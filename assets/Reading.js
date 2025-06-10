@@ -265,20 +265,7 @@ function updateButtonStates(questionIndex) {
     // 下一题/提交按钮状态
     const isLastQuestion = questionIndex === totalQuestions;
     
-    // 查找文本节点
-    let textNodeFound = false;
-    nextBtn.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            textNodeFound = true;
-            node.textContent = isLastQuestion ? 'Submit ' : 'Next ';
-        }
-    });
-    
-    // 如果没有找到文本节点，创建新的
-    if (!textNodeFound) {
-        const textNode = document.createTextNode(isLastQuestion ? 'Submit ' : 'Next ');
-        nextBtn.insertBefore(textNode, nextBtn.firstChild);
-    }
+    document.getElementById('next-text').textContent = isLastQuestion ? 'Submit ' : 'Next ';
 }
 
 // 上一题按钮事件

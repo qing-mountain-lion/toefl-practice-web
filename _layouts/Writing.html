@@ -1,97 +1,97 @@
 {% include head.html %}
 
-    <!-- 蓝绿色导航栏 -->
-    <nav class="navbar primary-navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white ms-3" href="#">Home</a>
-            <div class="d-flex">
-                <button class="border-0 next-btn" style="font-weight: bold;">Next 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-                    </svg>
-                </button>
+<!-- 蓝绿色导航栏 -->
+<nav class="navbar primary-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white ms-3" href="#">Home</a>
+        <div class="d-flex">
+            <button class="border-0 next-btn" style="font-weight: bold;">Next 
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- 灰色小题指示行 -->
+<nav class="navbar bg-light mb-2 secondary-navbar">
+        <div class="container-fluid row pe-0">
+            <span class="navbar-text ms-3 col-3" style="font-weight: bold;">Writing | Section 1 of 1</span>
+            
+            <!-- 进度条 -->
+            <div class="w-50 mx-auto col-auto">
+                <div class="progress">
+                    <div class="progress-bar-bg" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            
+            <!-- 时间显示 -->
+            <div class="col-3 justify-content-end d-flex align-items-center">
+                <span class="timer-section" id="timer">10:00</span>
+                <button id="hideTimer" class="hide-hint-btn ms-2" style="font-weight: bold;">Hide Timer</button>
             </div>
         </div>
-    </nav>
+</nav>
 
-    <!-- 灰色小题指示行 -->
-    <nav class="navbar bg-light mb-2 secondary-navbar">
-            <div class="container-fluid row pe-0">
-                <span class="navbar-text ms-3 col-3" style="font-weight: bold;">Writing | Section 1 of 1</span>
-                
-                <!-- 进度条 -->
-                <div class="w-50 mx-auto col-auto">
-                    <div class="progress">
-                        <div class="progress-bar-bg" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-                
-                <!-- 时间显示 -->
-                <div class="col-3 justify-content-end d-flex align-items-center">
-                    <span class="timer-section" id="timer">10:00</span>
-                    <button id="hideTimer" class="hide-hint-btn ms-2" style="font-weight: bold;">Hide Timer</button>
+<!-- 主体内容 -->
+<main>
+<div class="container-fluid">
+    <div class="row">
+        <!-- 左侧问题区域 -->
+        <div class="col-5 question-zone">
+            <div class="card writing-material-card" style="height: 100%;">
+                <div class="card-body card-container m-1">
+                    {{  content  }}
                 </div>
             </div>
-    </nav>
+        </div>
 
-    <!-- 主体内容 -->
-    <main>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- 左侧问题区域 -->
-            <div class="col-5 question-zone">
-                <div class="card writing-material-card" style="height: 100%;">
-                    <div class="card-body card-container m-1">
-                        {{  content  }}
-                    </div>
-                </div>
-            </div>
-
-            <!-- 右侧回答区域 -->
-            <div class="col-7">
-                <div class="row question-zone">
-                    <!-- 学生观点卡片 -->
-                    <div class="col-12" style="height: 47.5%;">
-                        <div class="card mb-3 border-0" style="height: 100%;">
-                            <div class="card-body">
-                                <!-- Claire的观点 -->
-                                <div class="d-flex mb-3">
-                                </div>
-                                
-                                <!-- Paul的观点 -->
-                                <div class="d-flex">
-                                </div>
+        <!-- 右侧回答区域 -->
+        <div class="col-7">
+            <div class="row question-zone">
+                <!-- 学生观点卡片 -->
+                <div class="col-12" style="height: 47.5%;">
+                    <div class="card mb-3 border-0" style="height: 100%;">
+                        <div class="card-body">
+                            <!-- Claire的观点 -->
+                            <div class="d-flex mb-3">
+                            </div>
+                            
+                            <!-- Paul的观点 -->
+                            <div class="d-flex">
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 mt-0" style="height: 5%;"></div>
-                    <!-- 写作区域 -->
-                    <div class="col-12 mt-0" style="height: 47.5%;">
-                        <div class="card writing-input-card" style="height: 100%;">
-                            <div class="card-header d-flex justify-content-end align-items-center" style="height: 60px;">
-                                <div class="d-flex justify-content-end align-items-center" style="height: 30px;">
-                                    <!-- 操作按钮 -->
-                                    <div class="d-flex justify-content-end">
-                                        <!-- <button id="cutBtn" class="btn action-btn me-2 disabled-btn">Cut</button>
-                                        <button id="pasteBtn" class="btn action-btn me-2 disabled-btn">Paste</button>
-                                        <button id="undoBtn" class="btn action-btn me-2 disabled-btn">Undo</button>
-                                        <button id="redoBtn" class="btn action-btn me-2 disabled-btn">Redo</button> -->
-                                        <div class="d-flex align-items-center">
-                                            <button id="hideWordCount" class="hide-hint-btn">Hide Word Count</button>
-                                            <span class="word-count">0</span>
-                                        </div>
+                </div>
+                <div class="col-12 mt-0" style="height: 5%;"></div>
+                <!-- 写作区域 -->
+                <div class="col-12 mt-0" style="height: 47.5%;">
+                    <div class="card writing-input-card" style="height: 100%;">
+                        <div class="card-header d-flex justify-content-end align-items-center" style="height: 60px;">
+                            <div class="d-flex justify-content-end align-items-center" style="height: 30px;">
+                                <!-- 操作按钮 -->
+                                <div class="d-flex justify-content-end">
+                                    <!-- <button id="cutBtn" class="btn action-btn me-2 disabled-btn">Cut</button>
+                                    <button id="pasteBtn" class="btn action-btn me-2 disabled-btn">Paste</button>
+                                    <button id="undoBtn" class="btn action-btn me-2 disabled-btn">Undo</button>
+                                    <button id="redoBtn" class="btn action-btn me-2 disabled-btn">Redo</button> -->
+                                    <div class="d-flex align-items-center">
+                                        <button id="hideWordCount" class="hide-hint-btn">Hide Word Count</button>
+                                        <span class="word-count">0</span>
                                     </div>
                                 </div>
                             </div>
-                            <!-- 文本输入区 -->
-                            <textarea id="writingArea" class="form-control card-body border-0" style="resize: none; border-radius: 0px 0px 20px 20px;"></textarea>
                         </div>
+                        <!-- 文本输入区 -->
+                        <textarea id="writingArea" class="form-control card-body border-0" style="resize: none; border-radius: 0px 0px 20px 20px;"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </main>
+</div>
+</main>
 
 <script src="/toefl-practice-web/assets/Writing_Independent.js"></script>
 

@@ -1,11 +1,18 @@
+/* Styles that used more than one section in the test (e.g. Listening and Reading) */
+
 :root {
     --primary-color: #37696E;
+    /* --primary-color: #000000; */
     --primary-color-dark: #2d4f4f;
 }
 
 body {
     overflow: hidden;
     height: 100vh;
+}
+
+h2 {
+    text-align: center;
 }
 
 .primary-navbar {
@@ -87,10 +94,6 @@ body {
     padding: 20px;
 }
 
-h2 {
-    text-align: center;
-}
-
 .single-select-button {
     border: 1px solid gray;
     border-radius: 50%;
@@ -104,46 +107,4 @@ h2 {
     background-color: black;
     background-image: none;
     border-color: black;
-}
-
-/* Writing Exclusive */
-.writing-material-card {
-    border: 2.5px solid var(--primary-color);
-    border-radius: 20px;
-}
-.writing-input-card {
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 20px;
-}
-
-/* Reading Exclusive */
-.reading-material-card {
-    border-width: 2.5px;
-    border-style: solid;
-    border-radius: 20px;
-}
-.excerpt_highlight {
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 6px;
-    padding: .25em;
-}
-.sentence_insertion {
-    width: 14px;
-    height: 20px;
-    background-color: black;
-    display: inline-block;
-    vertical-align: text-top;
-    margin-right: .2em;
-    cursor: pointer;
-}
-
-#hideWordCount {
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.word-count {
-    margin-left: 10px;
 }
