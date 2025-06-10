@@ -1,0 +1,185 @@
+[
+  {
+    "index": 1,
+    "type": "excerpt_highlight",
+    "paragraph": [
+      1
+    ],
+    "question": "The word “deflect” in the passage is closest in meaning to",
+    "choices": [
+      "direction",
+      "volume",
+      "frequency",
+      "clarity"
+    ],
+    "answer": "A",
+    "explanation": "选A。deflect是偏转，改变方向，引导方向的意思",
+    "sentence": ""
+  },
+  {
+    "index": 2,
+    "type": "multiple_choice",
+    "paragraph": [
+      2
+    ],
+    "question": "Why does the author describe how some cricket species “maximize the volume of their calls”?",
+    "choices": [
+      "To argue that crickets are a major source of noise in virgin rain forests",
+      "To help explain why it is difficult for many smaller animals to be heard in rain forests",
+      "To help explain why rain forests are noisier than other natural environments",
+      "To illustrate a sophisticated way of making a call heard in a rain forest"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "选D。本段主要内容对应第二句every species has developed clever or remarkably sophisticated strategies to ensure that its voice is heard.原文Some species of crickets maximize the volume of their calls by chewing a hole in the middle of a leaf to create a sound baffle, similar to a stereo speaker.是第二句话所述内容的一个例子，说明了sophisticated strategies. 故选D。",
+    "sentence": ""
+  },
+  {
+    "index": 3,
+    "type": "multiple_choice",
+    "paragraph": [
+      2
+    ],
+    "question": "The author mentions a “stereo speaker” in the passage in order to",
+    "choices": [
+      "contrast the ways in which humans and insects magnify their sounds",
+      "compare the ranges of sounds produced by humans and insects",
+      "support the claim that small size is a disadvantage for insects that produce calls",
+      "help explain how small insects magnify the sounds of their calls"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "选D。对应原文Some species of crickets maximize the volume of their calls by chewing a hole in the middle of a leaf to create a sound baffle, similar to a stereo speaker.这里主要在说maximize the volume of their calls.",
+    "sentence": ""
+  },
+  {
+    "index": 4,
+    "type": "multiple_choice",
+    "paragraph": [
+      3
+    ],
+    "question": "According to paragraph 3, which of the following is NOT part of the process that the Borneo tree frog used to make its mating call heard?",
+    "choices": [
+      "Finding a tree that has a hole of adequate size",
+      "Immersing part of its body in a water-filled hole",
+      "Aiming its call at a particular frog in a nearby tree",
+      "Trying out a number of distinct call frequencies Paragraph"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "选C。The frog searches for a suitable hole and then partially submerges itself in the water.对应AB；Its forte is the ability to adjust the frequency of its call to the size of the hole对应D. 选项C未提及。",
+    "sentence": ""
+  },
+  {
+    "index": 5,
+    "type": "multiple_choice",
+    "paragraph": [
+      4
+    ],
+    "question": "According to paragraph 4, what is a disadvantage of many birds all singing at dusk and dawn?",
+    "choices": [
+      "There is more competition from other birds at these times.",
+      "These are the safest times for birds to sleep.",
+      "It is easier for predators to locate birds when so many are making noise.",
+      "There are the best times for birds to find prey."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "",
+    "sentence": ""
+  },
+  {
+    "index": 6,
+    "type": "multiple_choice",
+    "paragraph": [
+      4
+    ],
+    "question": "It can be inferred from paragraph 4 that a tropical rain forest is most quiet at",
+    "choices": [
+      "dawn",
+      "the middle of the day",
+      "dusk",
+      "night"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "选B。原文提到Early morning and late evening produce conditions that allow sound to travel greater distances than during the middle parts of the day. 也就是说middle parts of the day期间，声音传播距离相对不远，也就安静。",
+    "sentence": ""
+  },
+  {
+    "index": 7,
+    "type": "multiple_choice",
+    "paragraph": [
+      5
+    ],
+    "question": "According to paragraph 5, a scientist recently visiting the Peruvian rain forest discovered that",
+    "choices": [
+      "the specialized frequencies of the sounds made by animals are determined by their body size",
+      "the frequencies of sounds made by animals at night are generally random",
+      "animals and insects of particular species make sounds at specific frequencies",
+      "animal and insect calls differ depending on whether they are heard in the laboratory or outside in nature"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "选C。对应原文When he took the tape back to his lab and analyzed it, he discovered that this seemingly chaotic banquet of sound was actually highly ordered.",
+    "sentence": ""
+  },
+  {
+    "index": 8,
+    "type": "multiple_choice",
+    "paragraph": [
+      6
+    ],
+    "question": "According to paragraph 6, what did the research of Professor Krause indicate about sound in rain forests?",
+    "choices": [
+      "Older rain forests have more varied sound frequencies than younger rain forests.",
+      "The patterns of sounds in rain forests are consistent over time.",
+      "The speed of sound movement can be affected by the location of the rain forest.",
+      "It is difficult to distinguish the atmospheric sound patterns of rain forests in one region from those in another."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "选B。对应原文…have become so specialized that their voices occupy several niches of the sound spectrum at the same time… 选项B中are consistent over time是原句中so specialized的同义转述。",
+    "sentence": ""
+  },
+  {
+    "index": 9,
+    "type": "sentence_insertion",
+    "paragraph": [
+      5
+    ],
+    "question": "Look at the four squares  [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?",
+    "choices": [],
+    "answer": "C",
+    "explanation": "选C。原句在indeed表示让步，该句说的是“声音乱”，让步句的前后意思都要和让步句相反，所以该句前后的内容都应该是“声音不乱”，故C位置合适。",
+    "sentence": "Indeed, there were numerous layers of sound, each clearly distinct from the others."
+  },
+  {
+    "index": 10,
+    "type": "summary",
+    "paragraph": [],
+    "question": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This questions is worth 2 points.Animal species in rain forests have developed a series of adaptations to make themselves heard.",
+    "choices": [
+      "Scientists have discovered that animals in rain forests adapt the length of their calls to overcome the barriers created by dense plant growth.",
+      "Many species of predators in rain forests prefer dawn rather than dusk as the best time to hear and pursue their prey.",
+      "Specialized frequencies facilitate sound transmission within species and also create regional sound environments that are highly stable.",
+      "Some smaller animals that live in rain forests use special strategies to increase the volume of their calls and the distance that their calls travel.",
+      "Because time of day affects how sound travels, many animals restrict their calls to either nighttime, when sound travels best, or dusk and dawn.",
+      "Research conducted in the Peruvian rain forest indicates that well-ordered periods of sound alternate with more chaotic sound periods."
+    ],
+    "answer": [
+      "C",
+      "D",
+      "E"
+    ],
+    "explanation": "选CDE。C对应第五段主旨；D对应第二段主旨；E对应第四段主旨。",
+    "sentence": ""
+  }
+]

@@ -1,0 +1,165 @@
+[
+  {
+    "index": 1,
+    "type": "multiple_choice",
+    "paragraph": [
+      1
+    ],
+    "question": "The word “evident” in the passage is closest in meaning to",
+    "choices": [
+      "surprising",
+      "obvious",
+      "believed",
+      "frustrating"
+    ],
+    "answer": [
+      "B"
+    ]
+  },
+  {
+    "index": 2,
+    "type": "multiple_choice",
+    "paragraph": [
+      1
+    ],
+    "question": "What can be inferred from paragraph 1 about nonindigenous pests such as brown rats and cockroaches?",
+    "choices": [
+      "Attempts limit the size of their populations have been unsuccessful.",
+      "They have inhabited North America longer than white-footed mice and ground moles.",
+      "Their numbers cannot usually be controlled by native predators and parasites.",
+      "They do not pose as many problems for humans as do white-footed mice and ground moles."
+    ],
+    "answer": [
+      "C"
+    ]
+  },
+  {
+    "index": 3,
+    "type": "excerpt_highlight",
+    "paragraph": [
+      3
+    ],
+    "question": "Which of the sentences below best expresses the essential information in the highlighted sentence in the passage? Incorrect choices change the meaning in important ways or leave out essential information.",
+    "choices": [
+      "Chemical pesticides often eliminate species other than the intended target and thereby upset food webs, especially by suppressing native predator species.",
+      "Native predator species are often eliminated by chemical pesticides that are intended to have consequences for other pests.",
+      "Chemical pesticides upset existing food webs by eliminating native species and by increasing the number of nonnative predators.",
+      "The effects of chemical pesticides on a wide array of food webs and native predators are often unintended."
+    ],
+    "answer": "A"
+  },
+  {
+    "index": 4,
+    "type": "multiple_choice",
+    "paragraph": [
+      5
+    ],
+    "question": "According to paragraph 5, why is a species likely to become a pest when it is introduced into a new habitat?",
+    "choices": [
+      "The species becomes more effective at escaping from its enemies.",
+      "The species has no natural predators in its new habitat.",
+      "The species adapts to habitats outside its natural range.",
+      "The species does not have to compete for resources with other plants and animals."
+    ],
+    "answer": [
+      "B"
+    ]
+  },
+  {
+    "index": 5,
+    "type": "multiple_choice",
+    "paragraph": [
+      6
+    ],
+    "question": "In paragraph 6, the discussion of the cactus-eating moth and the prickly pear in Australia illustrates which of the following about biological control?",
+    "choices": [
+      "Nonnative pests cannot be controlled through biological means once they have begun to spread rapidly.",
+      "A nonnative pest can sometimes be controlled by the introduction of a nonnative predator.",
+      "A nonindigenous pest can be controlled only by a predator that comes from the same original habitat as the pest.",
+      "A native pest can be controlled by either a native or a nonnative predator.."
+    ],
+    "answer": [
+      "B"
+    ]
+  },
+  {
+    "index": 6,
+    "type": "multiple_choice",
+    "paragraph": [
+      7
+    ],
+    "question": "The author discusses the cactus-feeding moth in Florida in order to",
+    "choices": [
+      "explain why the prickly pear species that are native to Florida have no indigenous predators",
+      "show how a predator spreads more rapidly in alien environments than it does in its native environment",
+      "indicate that a single nonindigenous predator species can be effective against a wide array of nonindigenous pest species",
+      "argue that controlling pests with nonindigenous predators can have unintended consequences"
+    ],
+    "answer": [
+      "D"
+    ]
+  },
+  {
+    "index": 7,
+    "type": "multiple_choice",
+    "paragraph": [
+      8
+    ],
+    "question": "According to paragraph 8, each of the following is a principle of integrated pest management EXCEPT",
+    "choices": [
+      "to control pest populations before a major outbreak occurs",
+      "to first determine if weather and natural enemies are able to control a pest",
+      "to increase the populations of the pest’s natural enemies during certain seasons of the year",
+      "to use artificial methods of pest control only when pests begin to cause economic injury"
+    ],
+    "answer": [
+      "C"
+    ]
+  },
+  {
+    "index": 8,
+    "type": "multiple_choice",
+    "paragraph": [
+      9
+    ],
+    "question": "According to paragraph 9, each of the following helps to determine how intensely to apply pest control measures EXCEPT",
+    "choices": [
+      "how much pest damage can be tolerated",
+      "the cost of pest control measures",
+      "what can be gained through pest control measures",
+      "whether pest control measures have been used before"
+    ],
+    "answer": [
+      "D"
+    ]
+  },
+  {
+    "index": 9,
+    "type": "sentence_insertion",
+    "paragraph": [
+      4
+    ],
+    "question": "Look at the four squares  [▇] that indicate where the following sentence could be added to the passage. Where would the sentence best fit?\nAnd the damage will continue until a new pesticide is developed, at which time the cycle will begin a new.",
+    "choices": [],
+    "answer": "D"
+  },
+  {
+    "index": 10,
+    "type": "summary",
+    "paragraph": [],
+    "question": "Directions: An introductory sentence for a brief summary of the passage is provided below. Complete the summary by selecting the THREE answer choices that express the most important ideas in the passage. Some answer choices do not belong in the summary because they express ideas that are not presented in the passage or are minor ideas in the passage. This questions is worth 2 points.",
+    "choices": [
+      "Biological methods of pest control were introduced by the ancient Sumerians, and chemical control was first used in ancient China.",
+      "Biological control, for example, the use of natural enemies of pests, has been effective at regulating nonnative pests, though it can also threaten the existence of native species.",
+      "Integrated pest management is a holistic approach that has been successful at controlling major pest outbreaks in locations where chemical and biological control have already failed.",
+      "Pesticides are limited in their usefulness because pests quickly become resistant to them, and because they can harm species for which they were not intended.",
+      "The success of biological and chemical approaches to pest control has been difficult to measure because situations vary significantly from one location to another.",
+      "Integrated pest management, an approach that consider biological, ecological, economic, and aesthetic aspects of pest control, uses a variety of techniques adjusted to specific situations."
+    ],
+    "answer": [
+      "B",
+      "D",
+      "F"
+    ]
+  }
+]
